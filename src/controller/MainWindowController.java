@@ -10,10 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Employee;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class MainWindowController {
     private Main main;
-
     private Stage primaryStage;
+    private String file = "src/data/file.txt";
 
     @FXML
     private TableView<Employee> tableView;
@@ -51,17 +55,42 @@ public class MainWindowController {
                 });
     }
 
+    public void openDataFile() {
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String [] oneLine;
+            while ((line = bufferedReader.readLine()) != null) {
+                oneLine= line.split("\\s+");
+                employeesList.add(new Employee(oneLine[0],oneLine[1],Integer.parseInt(oneLine[2])));
+            }
+            fileReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveDataFile(){
+
+    }
+
+
+
+
     public void setMain(Main main, Stage primaryStage) {
         this.main = main;
         this.primaryStage = primaryStage;
-       // setTable();
+        // setTable();
         tableView.setItems(employeesList);
     }
 
     @FXML
-    public void handleLoadButton(){
+    public void handleLoadButton() {
         System.out.println("Button pressed.");
-        setTable();
+        //setTable();
+        openDataFile();
 
     }
 }
