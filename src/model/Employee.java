@@ -7,6 +7,7 @@ public class Employee {
     private Integer roomNumber;
     private Integer workStartHour;
     private Integer workEndHour;
+    private Integer workTime;
 
     public Employee(String firstName, String lastName, Integer roomNumber, Integer workStartHour, Integer workEndHour) {
         this.firstName = firstName;
@@ -14,6 +15,7 @@ public class Employee {
         this.roomNumber = roomNumber;
         this.workStartHour = workStartHour;
         this.workEndHour = workEndHour;
+        this.workTime = workEndHour - workStartHour;
     }
 
     public String getFirstName() {
@@ -54,6 +56,10 @@ public class Employee {
 
     public void setWorkEndHour(Integer workEndHour) {
         this.workEndHour = workEndHour;
+    }
+
+    public Integer getWorkTime() {
+        return workTime;
     }
 
     @Override

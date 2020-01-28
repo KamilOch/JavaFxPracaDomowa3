@@ -12,24 +12,43 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class MainWindowController {
     private Main main;
     private Stage primaryStage;
     private String file = "src/data/file.txt";
+    private String reportFile = "src/data/reportFile.txt";
 
-    @FXML private TableView<Employee> tableView;
-    @FXML private TableColumn<Employee, String> firstNameColumn;
-    @FXML private TableColumn<Employee, String> lastNameColumn;
-    @FXML private TableColumn<Employee, Integer> roomNumberColumn;
-    @FXML private Button loadButton;
-    @FXML private Button saveButton;
-    @FXML private Button addButton;
-    @FXML private TextField firstNameTextField;
-    @FXML private TextField lastNameTextField;
-    @FXML private TextField roomNumberTextField;
-    @FXML private TextField workStartHourTextField;
-    @FXML private TextField workEndHourTextField;
+    @FXML
+    private TableView<Employee> tableView;
+    @FXML
+    private TableColumn<Employee, String> firstNameColumn;
+    @FXML
+    private TableColumn<Employee, String> lastNameColumn;
+    @FXML
+    private TableColumn<Employee, Integer> roomNumberColumn;
+    @FXML
+    private Button loadButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button reportButton;
+    @FXML
+    private TextField firstNameTextField;
+    @FXML
+    private TextField lastNameTextField;
+    @FXML
+    private TextField roomNumberTextField;
+    @FXML
+    private TextField workStartHourTextField;
+    @FXML
+    private TextField workEndHourTextField;
 
     private ObservableList<Employee> employeesList =
             FXCollections.observableArrayList();
@@ -41,8 +60,6 @@ public class MainWindowController {
                 new PropertyValueFactory<Employee, String>("lastName"));
         roomNumberColumn.setCellValueFactory(
                 new PropertyValueFactory<Employee, Integer>("roomNumber"));
-
-
 
 
         tableView.getSelectionModel().selectedItemProperty().
@@ -88,6 +105,33 @@ public class MainWindowController {
         }
     }
 
+    public void saveReportFile() {
+
+        List<Employee> list = new ArrayList<>();
+        list.addAll(employeesList);
+
+        PrintWriter printer = null;
+
+        Collections.sort(list, new Comparator<Employee>() {
+            @Override
+            public int compare(Employee one, Employee two) {
+                return one.getWorkTime() > two.getWorkTime() ? -1 : (one.getWorkTime() < two.getWorkTime()) ? 1 : 0;
+            }
+        });
+
+        try {
+            printer = new PrintWriter(reportFile);
+
+            for (Employee e : list) {
+                printer.println(e.toString());
+            }
+            printer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void setMain(Main main, Stage primaryStage) {
         this.main = main;
         this.primaryStage = primaryStage;
@@ -107,7 +151,7 @@ public class MainWindowController {
     }
 
     @FXML
-    void handleAddButton() {
+    public void handleAddButton() {
         System.out.println("Add Button pressed.");
         employeesList.add(new Employee(
                 firstNameTextField.getText(),
@@ -117,5 +161,11 @@ public class MainWindowController {
                 Integer.parseInt(workEndHourTextField.getText()))
         );
     }
+
+    @FXML
+    public void handleReportButton() {
+        saveReportFile();
+    }
+
 
 }
