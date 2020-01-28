@@ -3,9 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Employee;
@@ -34,6 +32,12 @@ public class MainWindowController {
     private Button saveButton;
     @FXML
     private Button addButton;
+    @FXML
+    private TextField firstNameTextField;
+    @FXML
+    private TextField lastNameTextField;
+    @FXML
+    private TextField roomNumberTextField;
 
     private ObservableList<Employee> employeesList =
             FXCollections.observableArrayList();
@@ -55,6 +59,10 @@ public class MainWindowController {
 
         tableView.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldVal, newVal) -> {
+
+                    firstNameTextField.setText(newVal.getFirstName());
+                    lastNameTextField.setText(newVal.getLastName());
+                    roomNumberTextField.setText(String.valueOf(newVal.getRoomNumber()));
                     System.out.println(newVal.getFirstName() + " " +
                             newVal.getLastName());
                 });
@@ -78,7 +86,6 @@ public class MainWindowController {
     }
 
     public void saveDataFile() {
-        //String[] array2 = employeesList;
         PrintWriter printer = null;
 
         try {
@@ -99,6 +106,7 @@ public class MainWindowController {
         this.primaryStage = primaryStage;
         // setTable();
         tableView.setItems(employeesList);
+
     }
 
     @FXML
@@ -109,12 +117,13 @@ public class MainWindowController {
     }
 
     @FXML
-    public void handleSaveButton(){
+    public void handleSaveButton() {
         System.out.println("Save Button pressed.");
         saveDataFile();
     }
 
-    @FXML void handleAddButton(){
+    @FXML
+    void handleAddButton() {
         System.out.println("Add Button pressed.");
 
     }

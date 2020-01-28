@@ -26,8 +26,8 @@ public class Main extends Application {
             primaryStage.setTitle("Praca domowa nr. 3");
 
             AnchorPane pane = loader.load();
-            primaryStage.setMinWidth(400.00);
-            primaryStage.setMinHeight(300.00);
+            primaryStage.setMinWidth(800);
+            primaryStage.setMinHeight(400);
 
             Scene scene = new Scene(pane);
 
@@ -35,7 +35,7 @@ public class Main extends Application {
                     loader.getController();
 
             mainWindowController.setMain(this, primaryStage);
-            primaryStage.setMinWidth(1000.00);
+            primaryStage.setMinWidth(1050.00);
             primaryStage.setMinHeight(800.00);
 
             primaryStage.setScene(scene);
