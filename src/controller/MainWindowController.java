@@ -18,26 +18,18 @@ public class MainWindowController {
     private Stage primaryStage;
     private String file = "src/data/file.txt";
 
-    @FXML
-    private TableView<Employee> tableView;
-    @FXML
-    private TableColumn<Employee, String> firstNameColumn;
-    @FXML
-    private TableColumn<Employee, String> lastNameColumn;
-    @FXML
-    private TableColumn<Employee, Integer> roomNumberColumn;
-    @FXML
-    private Button loadButton;
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button addButton;
-    @FXML
-    private TextField firstNameTextField;
-    @FXML
-    private TextField lastNameTextField;
-    @FXML
-    private TextField roomNumberTextField;
+    @FXML private TableView<Employee> tableView;
+    @FXML private TableColumn<Employee, String> firstNameColumn;
+    @FXML private TableColumn<Employee, String> lastNameColumn;
+    @FXML private TableColumn<Employee, Integer> roomNumberColumn;
+    @FXML private Button loadButton;
+    @FXML private Button saveButton;
+    @FXML private Button addButton;
+    @FXML private TextField firstNameTextField;
+    @FXML private TextField lastNameTextField;
+    @FXML private TextField roomNumberTextField;
+    @FXML private TextField workStartHourTextField;
+    @FXML private TextField workEndHourTextField;
 
     private ObservableList<Employee> employeesList =
             FXCollections.observableArrayList();
@@ -50,11 +42,17 @@ public class MainWindowController {
         roomNumberColumn.setCellValueFactory(
                 new PropertyValueFactory<Employee, Integer>("roomNumber"));
 
+
+
+
         tableView.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldVal, newVal) -> {
                     firstNameTextField.setText(newVal.getFirstName());
                     lastNameTextField.setText(newVal.getLastName());
                     roomNumberTextField.setText(String.valueOf(newVal.getRoomNumber()));
+                    workStartHourTextField.setText(String.valueOf(newVal.getWorkStartHour()));
+                    workEndHourTextField.setText(String.valueOf(newVal.getWorkEndHour()));
+
                 });
     }
 
@@ -66,7 +64,7 @@ public class MainWindowController {
             String[] oneLine;
             while ((line = bufferedReader.readLine()) != null) {
                 oneLine = line.split("\\s+");
-                employeesList.add(new Employee(oneLine[0], oneLine[1], Integer.parseInt(oneLine[2])));
+                employeesList.add(new Employee(oneLine[0], oneLine[1], Integer.parseInt(oneLine[2]), Integer.parseInt(oneLine[3]), Integer.parseInt(oneLine[4])));
             }
             fileReader.close();
 
@@ -114,7 +112,10 @@ public class MainWindowController {
         employeesList.add(new Employee(
                 firstNameTextField.getText(),
                 lastNameTextField.getText(),
-                Integer.parseInt(roomNumberTextField.getText())));
+                Integer.parseInt(roomNumberTextField.getText()),
+                Integer.parseInt(workStartHourTextField.getText()),
+                Integer.parseInt(workEndHourTextField.getText()))
+        );
     }
 
 }
