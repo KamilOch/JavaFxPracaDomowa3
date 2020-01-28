@@ -42,13 +42,6 @@ public class MainWindowController {
     private ObservableList<Employee> employeesList =
             FXCollections.observableArrayList();
 
-    private void setTable() {
-        employeesList.add(new Employee("Charlie", "Brown", 10));
-        employeesList.add(new Employee("Jan", "Kowalski", 20));
-        employeesList.add(new Employee("Homer", "Simpson", 40));
-        employeesList.add(new Employee("Stefan", "Nowak", 30));
-    }
-
     public void initialize() {
         firstNameColumn.setCellValueFactory(
                 new PropertyValueFactory<Employee, String>("firstName"));
@@ -59,12 +52,9 @@ public class MainWindowController {
 
         tableView.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldVal, newVal) -> {
-
                     firstNameTextField.setText(newVal.getFirstName());
                     lastNameTextField.setText(newVal.getLastName());
                     roomNumberTextField.setText(String.valueOf(newVal.getRoomNumber()));
-                    System.out.println(newVal.getFirstName() + " " +
-                            newVal.getLastName());
                 });
     }
 
@@ -100,32 +90,31 @@ public class MainWindowController {
         }
     }
 
-
     public void setMain(Main main, Stage primaryStage) {
         this.main = main;
         this.primaryStage = primaryStage;
-        // setTable();
         tableView.setItems(employeesList);
 
     }
 
     @FXML
     public void handleLoadButton() {
-        System.out.println("Load Button pressed.");
-        //setTable();
+        employeesList.clear();
         openDataFile();
     }
 
     @FXML
     public void handleSaveButton() {
-        System.out.println("Save Button pressed.");
         saveDataFile();
     }
 
     @FXML
     void handleAddButton() {
         System.out.println("Add Button pressed.");
-
+        employeesList.add(new Employee(
+                firstNameTextField.getText(),
+                lastNameTextField.getText(),
+                Integer.parseInt(roomNumberTextField.getText())));
     }
 
 }

@@ -1,3 +1,6 @@
 Jan Kowalski 124
 Edek Test 20
 Karol Test 300
+Adam Pierwszy 1
+Ewa Pierwszy 1
+Edek Test22 20
