@@ -35,4 +35,9 @@ public class Employee {
     public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " " + roomNumber;
+    }
 }

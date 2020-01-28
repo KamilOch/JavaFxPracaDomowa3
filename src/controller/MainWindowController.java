@@ -13,6 +13,7 @@ import model.Employee;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class MainWindowController {
     private Main main;
@@ -29,6 +30,10 @@ public class MainWindowController {
     private TableColumn<Employee, Integer> roomNumberColumn;
     @FXML
     private Button loadButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button addButton;
 
     private ObservableList<Employee> employeesList =
             FXCollections.observableArrayList();
@@ -60,10 +65,10 @@ public class MainWindowController {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
-            String [] oneLine;
+            String[] oneLine;
             while ((line = bufferedReader.readLine()) != null) {
-                oneLine= line.split("\\s+");
-                employeesList.add(new Employee(oneLine[0],oneLine[1],Integer.parseInt(oneLine[2])));
+                oneLine = line.split("\\s+");
+                employeesList.add(new Employee(oneLine[0], oneLine[1], Integer.parseInt(oneLine[2])));
             }
             fileReader.close();
 
@@ -72,11 +77,21 @@ public class MainWindowController {
         }
     }
 
-    public void saveDataFile(){
+    public void saveDataFile() {
+        //String[] array2 = employeesList;
+        PrintWriter printer = null;
 
+        try {
+            printer = new PrintWriter(file);
+
+            for (Employee e : employeesList) {
+                printer.println(e.toString());
+            }
+            printer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 
 
     public void setMain(Main main, Stage primaryStage) {
@@ -88,9 +103,20 @@ public class MainWindowController {
 
     @FXML
     public void handleLoadButton() {
-        System.out.println("Button pressed.");
+        System.out.println("Load Button pressed.");
         //setTable();
         openDataFile();
+    }
+
+    @FXML
+    public void handleSaveButton(){
+        System.out.println("Save Button pressed.");
+        saveDataFile();
+    }
+
+    @FXML void handleAddButton(){
+        System.out.println("Add Button pressed.");
 
     }
+
 }
