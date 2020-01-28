@@ -115,7 +115,7 @@ public class MainWindowController {
         Collections.sort(list, new Comparator<Employee>() {
             @Override
             public int compare(Employee one, Employee two) {
-                return one.getWorkTime() > two.getWorkTime() ? -1 : (one.getWorkTime() < two.getWorkTime()) ? 1 : 0;
+                return one.getWorkTime() < two.getWorkTime() ? -1 : (one.getWorkTime() > two.getWorkTime()) ? 1 : 0;
             }
         });
 
