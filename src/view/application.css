@@ -1,0 +1,33 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.anchorPane {
+		-fx-border-style:solid;
+    	-fx-border-width:3px;
+}
+	
+.my-button {
+	-fx-border-style:solid;
+	-fx-border-width:1px;
+	-fx-border-radius:10;
+	-fx-font: bold 10pt "sans-serif";
+	-fx-background-color:grey;
+	}
+
+.textField {
+		-fx-border-style:solid;
+    	-fx-border-width:3px;
+}
+
+.tableColumn {
+        -fx-border-style:solid;
+    	-fx-border-width:3px;
+}
+
+.tableView {
+        -fx-border-style:solid;
+      	-fx-border-width:3px;
+}
+
+.label {
+        -fx-font: bold 12pt "sans-serif";
+}

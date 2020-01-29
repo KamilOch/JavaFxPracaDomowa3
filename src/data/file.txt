@@ -1,6 +1,4 @@
-Jan Kowalski 124 9 16
-Edek Test 20 8 17
-Karol Test 300 7 15
-Adam Pierwszy 1 14 20
+Jan Kowalski 12 9 16
 Ewa Pierwszy 1 12 18
-Edek Test22 20 8 18
+Jan Kowalski 14 9 16
+Adam Pierwszy 11 14 20

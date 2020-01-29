@@ -5,23 +5,28 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Employee;
+import sun.plugin.dom.css.RGBColor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class MainWindowController {
     private Main main;
     private Stage primaryStage;
     private String file = "src/data/file.txt";
     private String reportFile = "src/data/reportFile.txt";
+
+    private ObservableList<Employee> employeesList =
+            FXCollections.observableArrayList();
+
+    private List<Rectangle> rooms = new ArrayList<>();
 
     @FXML
     private TableView<Employee> tableView;
@@ -50,8 +55,36 @@ public class MainWindowController {
     @FXML
     private TextField workEndHourTextField;
 
-    private ObservableList<Employee> employeesList =
-            FXCollections.observableArrayList();
+    @FXML
+    private Rectangle room1;
+    @FXML
+    private Rectangle room2;
+    @FXML
+    private Rectangle room3;
+    @FXML
+    private Rectangle room4;
+    @FXML
+    private Rectangle room5;
+    @FXML
+    private Rectangle room6;
+    @FXML
+    private Rectangle room7;
+    @FXML
+    private Rectangle room8;
+    @FXML
+    private Rectangle room9;
+    @FXML
+    private Rectangle room10;
+    @FXML
+    private Rectangle room11;
+    @FXML
+    private Rectangle room12;
+    @FXML
+    private Rectangle room13;
+    @FXML
+    private Rectangle room14;
+    @FXML
+    private Rectangle room15;
 
     public void initialize() {
         firstNameColumn.setCellValueFactory(
@@ -60,6 +93,22 @@ public class MainWindowController {
                 new PropertyValueFactory<Employee, String>("lastName"));
         roomNumberColumn.setCellValueFactory(
                 new PropertyValueFactory<Employee, Integer>("roomNumber"));
+
+        rooms.add(room1);
+        rooms.add(room2);
+        rooms.add(room3);
+        rooms.add(room4);
+        rooms.add(room5);
+        rooms.add(room6);
+        rooms.add(room7);
+        rooms.add(room8);
+        rooms.add(room9);
+        rooms.add(room10);
+        rooms.add(room11);
+        rooms.add(room12);
+        rooms.add(room13);
+        rooms.add(room14);
+        rooms.add(room15);
 
 
         tableView.getSelectionModel().selectedItemProperty().
@@ -70,6 +119,16 @@ public class MainWindowController {
                     workStartHourTextField.setText(String.valueOf(newVal.getWorkStartHour()));
                     workEndHourTextField.setText(String.valueOf(newVal.getWorkEndHour()));
 
+                    if (newVal.getRoomNumber() <= rooms.size()) {
+                        rooms.get(newVal.getRoomNumber() - 1).setFill(Color.RED);
+                        try {
+                            if (!newVal.getRoomNumber().equals(oldVal.getRoomNumber())
+                                    && oldVal.getRoomNumber() <= rooms.size()) {
+                                rooms.get(oldVal.getRoomNumber() - 1).setFill(Color.rgb(30, 150, 255));
+                            }
+                        } catch (NullPointerException e) {
+                        }
+                    }
                 });
     }
 
@@ -81,7 +140,12 @@ public class MainWindowController {
             String[] oneLine;
             while ((line = bufferedReader.readLine()) != null) {
                 oneLine = line.split("\\s+");
-                employeesList.add(new Employee(oneLine[0], oneLine[1], Integer.parseInt(oneLine[2]), Integer.parseInt(oneLine[3]), Integer.parseInt(oneLine[4])));
+                employeesList.add(
+                        new Employee(oneLine[0],
+                                oneLine[1],
+                                Integer.parseInt(oneLine[2]),
+                                Integer.parseInt(oneLine[3]),
+                                Integer.parseInt(oneLine[4])));
             }
             fileReader.close();
 
