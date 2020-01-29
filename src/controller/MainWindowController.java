@@ -153,13 +153,21 @@ public class MainWindowController {
     @FXML
     public void handleAddButton() {
         System.out.println("Add Button pressed.");
-        employeesList.add(new Employee(
-                firstNameTextField.getText(),
-                lastNameTextField.getText(),
-                Integer.parseInt(roomNumberTextField.getText()),
-                Integer.parseInt(workStartHourTextField.getText()),
-                Integer.parseInt(workEndHourTextField.getText()))
-        );
+
+        if (!firstNameTextField.getText().isEmpty() &&
+                !lastNameTextField.getText().isEmpty() &&
+                !roomNumberTextField.getText().isEmpty() &&
+                !workStartHourTextField.getText().isEmpty() &&
+                !workEndHourTextField.getText().isEmpty()) {
+
+            employeesList.add(new Employee(
+                    firstNameTextField.getText(),
+                    lastNameTextField.getText(),
+                    Integer.parseInt(roomNumberTextField.getText()),
+                    Integer.parseInt(workStartHourTextField.getText()),
+                    Integer.parseInt(workEndHourTextField.getText()))
+            );
+        }
     }
 
     @FXML
